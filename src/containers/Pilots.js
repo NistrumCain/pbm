@@ -12,14 +12,18 @@ function Pilots() {
       })
     }
     if(pilots) {
-      let factions = {list:[]}
+      let factions = {}
       for(var i in pilots.data){
-        console.log(pilots.data[i].faction)
-        if(!factions.list || !factions.list.includes(pilots.data[i].faction)) {
-          factions.list.push(pilots.data[i].faction)
-          
+        if(Object.keys(factions).indexOf(pilots.data[i].faction) === -1) {
+          let pilotFaction = pilots.data[i].faction
+          factions[pilotFaction] = [pilots.data[i]]
+        } else {
+          for( var faction in factions ){
+            if(faction === pilots.data[i].faction) {
+              factions[faction].push(pilots.data[i])
+            }
+          }
         }
-
       }
       console.log(factions,'factions')
     }
